@@ -12,7 +12,9 @@ const postSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // FETCH POST
+    /**
+     * FETCH POST
+     */
     builder.addCase(fetchPosts.pending, (state) => {
       console.log("fetch pending");
       state.loading = true;
@@ -30,24 +32,21 @@ const postSlice = createSlice({
       state.posts = [];
       state.error = action.payload;
     });
-    // CREATE POST
+    /**
+     * CREATE POST
+     */
     builder.addCase(createPost.pending, (state) => {
+      console.log("add pending");
       state.loading = true;
     });
     builder.addCase(createPost.fulfilled, (state, { type, payload }) => {
-      console.log("post created", type, payload);
-      state.posts = { ...state.posts, payload };
+      console.log("add successful", type, payload);
+      state.loading = false;
+      state.posts.push(payload);
     });
     builder.addCase(createPost.rejected, (state, action) => {
+      console.log("add rejected", action);
       state.loading = false;
-    });
-    // UPDATE POST
-    builder.addCase(updatePost.pending, (state) => {});
-    builder.addCase(updatePost.fulfilled, (state, { type, payload }) => {
-      console.log("post updated", type, payload);
-    });
-    builder.addCase(updatePost.rejected, (state, { type, payload }) => {
-      console.log("post updated rejected", type, payload);
     });
   },
 });

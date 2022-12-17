@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../../api/api.js";
 import Post from "./Post/Post.jsx";
 
-function Posts({ setPostData, setUpdateMode }) {
+function Posts({ setPostData }) {
   const dispatch = useDispatch();
   const posts = useSelector((store) => {
     console.log("store", store);
@@ -16,18 +16,11 @@ function Posts({ setPostData, setUpdateMode }) {
 
   return (
     <div className="container">
-      <h2>Posts</h2>
+      <h2>Posts - {posts.length ? posts.length : null}</h2>
       {!posts && <p>No memories found!</p>}
       {posts &&
         posts.map((p) => {
-          return (
-            <Post
-              key={p._id}
-              post={p}
-              setPostData={setPostData}
-              setUpdateMode={setUpdateMode}
-            />
-          );
+          return <Post key={p._id} post={p} setPostData={setPostData} />;
         })}
     </div>
   );

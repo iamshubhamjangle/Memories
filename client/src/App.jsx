@@ -13,18 +13,11 @@ const App = () => {
     selectedFile: "",
   });
 
-  const [updateMode, setUpdateMode] = useState(false);
-
   return (
     <div>
       <Nav />
-      <Form
-        postData={postData}
-        setPostData={setPostData}
-        updateMode={updateMode}
-        setUpdateMode={setUpdateMode}
-      />
-      <Posts setPostData={setPostData} setUpdateMode={setUpdateMode} />
+      <Form postData={postData} setPostData={setPostData} />
+      <Posts setPostData={setPostData} />
     </div>
   );
 };

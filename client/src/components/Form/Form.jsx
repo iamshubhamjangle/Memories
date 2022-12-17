@@ -1,12 +1,10 @@
 import React from "react";
-import { useState } from "react";
 import FileBase from "react-file-base64";
 import { useDispatch } from "react-redux";
-import { updatePost } from "../../../../server/controllers/posts";
 import { createPost } from "../../api/api";
 import "./styles.css";
 
-function Form({ postData, setPostData, updateMode, setUpdateMode }) {
+function Form({ postData, setPostData }) {
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -15,13 +13,18 @@ function Form({ postData, setPostData, updateMode, setUpdateMode }) {
   };
 
   const clear = () => {
-    setUpdateMode(false);
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!updateMode) dispatch(createPost(postData));
-    else dispatch(updatePost(postData._id, postData));
+    dispatch(createPost(postData));
   };
 
   return (
@@ -35,6 +38,7 @@ function Form({ postData, setPostData, updateMode, setUpdateMode }) {
           type="text"
           onChange={(e) => handleChange(e)}
           value={postData.creator}
+          required
         />
         <input
           className="form-control"
@@ -43,6 +47,7 @@ function Form({ postData, setPostData, updateMode, setUpdateMode }) {
           type="text"
           onChange={(e) => handleChange(e)}
           value={postData.title}
+          required
         />
         <input
           className="form-control"
@@ -51,6 +56,7 @@ function Form({ postData, setPostData, updateMode, setUpdateMode }) {
           type="text"
           onChange={(e) => handleChange(e)}
           value={postData.message}
+          required
         />
         <input
           className="form-control"
@@ -70,14 +76,12 @@ function Form({ postData, setPostData, updateMode, setUpdateMode }) {
           />
         </div>
         <button className="btn btn-primary" type="submit">
-          {!updateMode ? "Add" : "Update"}
+          Add
         </button>
         <button className="btn btn-secondary" onClick={clear}>
           Clear
         </button>
       </form>
-
-      {/* <p>{JSON.stringify(postData)}</p> */}
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import "./styles.css";
 import moment from "moment";
 
-function Post({ post, setPostData, setUpdateMode }) {
+function Post({ post, setPostData }) {
   return (
     <div className="card">
       <img
@@ -26,7 +26,6 @@ function Post({ post, setPostData, setUpdateMode }) {
         <button
           onClick={() => {
             setPostData(post);
-            setUpdateMode(true);
           }}
         >
           Edit
