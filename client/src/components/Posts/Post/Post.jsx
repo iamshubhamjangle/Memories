@@ -19,10 +19,10 @@ function Post({ post, setPostData }) {
           );
         })}
         <h5 className="card-title">{post.title}</h5>
+        <p className="card-text">@{post.creator}</p>
         <p className="card-text">{moment(post.createdAt).fromNow()}</p>
         <p className="card-text">{post.message}</p>
         <button>Like: {post.likeCount}</button>
-        <span className="card-text">@{post.creator}</span>
         <button
           onClick={() => {
             setPostData(post);

@@ -17,11 +17,13 @@ function Posts({ setPostData }) {
   return (
     <div className="container">
       <h2>Posts - {posts.length ? posts.length : null}</h2>
-      {!posts && <p>No memories found!</p>}
-      {posts &&
-        posts.map((p) => {
-          return <Post key={p._id} post={p} setPostData={setPostData} />;
-        })}
+      <div className="d-flex flex-wrap">
+        {!posts && <p>No memories found!</p>}
+        {posts &&
+          posts.map((p) => {
+            return <Post key={p._id} post={p} setPostData={setPostData} />;
+          })}
+      </div>
     </div>
   );
 }
