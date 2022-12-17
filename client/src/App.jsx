@@ -5,19 +5,11 @@ import Nav from "./components/Nav/Nav";
 import "./styles.css";
 
 const App = () => {
-  const [postData, setPostData] = useState({
-    creator: "",
-    title: "",
-    message: "",
-    tags: "",
-    selectedFile: "",
-  });
-
   return (
     <div>
       <Nav />
-      <Form postData={postData} setPostData={setPostData} />
-      <Posts setPostData={setPostData} />
+      <Form />
+      <Posts />
     </div>
   );
 };

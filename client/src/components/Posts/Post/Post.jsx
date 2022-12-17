@@ -1,8 +1,8 @@
 import React from "react";
-import "./styles.css";
 import moment from "moment";
+import "./styles.css";
 
-function Post({ post, setPostData }) {
+function Post({ post }) {
   return (
     <div className="card">
       <img
@@ -23,13 +23,7 @@ function Post({ post, setPostData }) {
         <p className="card-text">{moment(post.createdAt).fromNow()}</p>
         <p className="card-text">{post.message}</p>
         <button>Like: {post.likeCount}</button>
-        <button
-          onClick={() => {
-            setPostData(post);
-          }}
-        >
-          Edit
-        </button>
+        <button onClick={() => {}}>Edit</button>
         <button>Delete</button>
       </div>
     </div>

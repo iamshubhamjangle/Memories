@@ -1,34 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import FileBase from "react-file-base64";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../../api/api";
+import {
+  clearFormData,
+  setCreator,
+  setTitle,
+  setMessage,
+  setTags,
+  setFile,
+} from "../../features/form/formSlice";
 import "./styles.css";
 
-function Form({ postData, setPostData }) {
+function Form() {
   const dispatch = useDispatch();
+  const formData = useSelector((store) => {
+    return store.form;
+  });
 
-  const handleChange = (e) => {
-    const { value, name } = e.target;
-    setPostData({ ...postData, [name]: value });
-  };
+  // const handleChange = (e) => {
+  //   const { value, name } = e.target;
+  //   // dispatch(setFormData({ ...formData, [name]: value }));
+  // };
 
-  const clear = () => {
-    setPostData({
-      creator: "",
-      title: "",
-      message: "",
-      tags: "",
-      selectedFile: "",
-    });
+  const handleClear = (e) => {
+    e.preventDefault();
+    dispatch(clearFormData());
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost(postData));
+    dispatch(createPost(formData));
   };
 
   return (
     <div className="container">
+      {JSON.stringify(formData)}
       <h1>Create a memory</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
         <input
@@ -36,8 +43,8 @@ function Form({ postData, setPostData }) {
           name="creator"
           placeholder="creator"
           type="text"
-          onChange={(e) => handleChange(e)}
-          value={postData.creator}
+          onChange={(e) => dispatch(setCreator(e.target.value))}
+          value={formData.creator}
           required
         />
         <input
@@ -45,8 +52,8 @@ function Form({ postData, setPostData }) {
           name="title"
           placeholder="title"
           type="text"
-          onChange={(e) => handleChange(e)}
-          value={postData.title}
+          onChange={(e) => dispatch(setTitle(e.target.value))}
+          value={formData.title}
           required
         />
         <input
@@ -54,8 +61,8 @@ function Form({ postData, setPostData }) {
           name="message"
           placeholder="message"
           type="text"
-          onChange={(e) => handleChange(e)}
-          value={postData.message}
+          onChange={(e) => dispatch(setMessage(e.target.value))}
+          value={formData.message}
           required
         />
         <input
@@ -63,22 +70,21 @@ function Form({ postData, setPostData }) {
           name="tags"
           placeholder="tags"
           type="text"
-          onChange={(e) => handleChange(e)}
-          value={postData.tags}
+          onChange={(e) => dispatch(setTags(e.target.value))}
+          value={formData.tags}
         />
         <div className="filepicker">
           <FileBase
             type="file"
             multiple={false}
-            onDone={({ base64 }) =>
-              setPostData({ ...postData, selectedFile: base64 })
-            }
+            name="selectedFile"
+            onDone={({ base64 }) => dispatch(setFile(base64))}
           />
         </div>
         <button className="btn btn-primary" type="submit">
           Add
         </button>
-        <button className="btn btn-secondary" onClick={clear}>
+        <button className="btn btn-secondary" onClick={(e) => handleClear(e)}>
           Clear
         </button>
       </form>
