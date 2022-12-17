@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  creator: "",
-  title: "",
-  message: "",
-  tags: "",
-  selectedFile: "",
+  updateMode: false,
+  data: {
+    creator: "",
+    title: "",
+    message: "",
+    tags: "",
+    selectedFile: "",
+  },
 };
 
 const formSlice = createSlice({
@@ -13,29 +16,46 @@ const formSlice = createSlice({
   initialState,
   reducers: {
     setCreator: (state, { payload }) => {
-      state.creator = payload;
+      state.data.creator = payload;
     },
     setTitle: (state, { payload }) => {
-      state.title = payload;
+      state.data.title = payload;
     },
     setMessage: (state, { payload }) => {
-      state.message = payload;
+      state.data.message = payload;
     },
     setTags: (state, { payload }) => {
-      state.tags = payload;
+      state.data.tags = payload;
     },
     setSelectedFile: (state, { payload }) => {
-      state.selectedFile = payload;
+      state.data.selectedFile = payload;
     },
     clearFormData: (state) => {
-      state.creator = "";
-      state.title = "";
-      state.message = "";
-      state.tags = "";
-      state.selectedFile = "";
+      state.data.creator = "";
+      state.data.title = "";
+      state.data.message = "";
+      state.data.tags = "";
+      state.data.selectedFile = "";
+      state.updateMode = false;
+    },
+    setUpdateMode: (state, { payload }) => {
+      state.updateMode = payload;
+    },
+    setFormData: (state, { payload }) => {
+      state.data = payload;
     },
   },
-  extraReducers: {},
+  extraReducers: {
+    // Dependent Reducer
+    ["post/createPost/fulfilled"]: (state) => {
+      state.data.creator = "";
+      state.data.title = "";
+      state.data.message = "";
+      state.data.tags = "";
+      state.data.selectedFile = "";
+      state.updateMode = false;
+    },
+  },
 });
 
 export default formSlice.reducer;
@@ -46,4 +66,6 @@ export const {
   setTags,
   setFile,
   clearFormData,
+  setUpdateMode,
+  setFormData,
 } = formSlice.actions;

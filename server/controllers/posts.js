@@ -26,6 +26,8 @@ export const updatePost = async (req, res) => {
   const { _id } = req.params;
   const post = req.body;
 
+  console.log("update", req.body);
+
   // If incoming _id is not a mongoose id
   if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(404).send("No post with that id");

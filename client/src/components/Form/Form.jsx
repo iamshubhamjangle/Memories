@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost } from "../../api/api";
+import { createPost, updatePost } from "../../api/api";
 import {
   clearFormData,
   setCreator,
@@ -14,9 +14,7 @@ import "./styles.css";
 
 function Form() {
   const dispatch = useDispatch();
-  const formData = useSelector((store) => {
-    return store.form;
-  });
+  const { updateMode, data } = useSelector((store) => store.form);
 
   // const handleChange = (e) => {
   //   const { value, name } = e.target;
@@ -30,13 +28,14 @@ function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost(formData));
+    if (updateMode) dispatch(updatePost(data._id, data));
+    else dispatch(createPost(data));
   };
 
   return (
     <div className="container">
-      {JSON.stringify(formData)}
-      <h1>Create a memory</h1>
+      <p>data :{JSON.stringify(data)}</p>
+      <h1>{updateMode ? "Update" : "Create"} a memory</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
         <input
           className="form-control"
@@ -44,7 +43,7 @@ function Form() {
           placeholder="creator"
           type="text"
           onChange={(e) => dispatch(setCreator(e.target.value))}
-          value={formData.creator}
+          value={data.creator}
           required
         />
         <input
@@ -53,7 +52,7 @@ function Form() {
           placeholder="title"
           type="text"
           onChange={(e) => dispatch(setTitle(e.target.value))}
-          value={formData.title}
+          value={data.title}
           required
         />
         <input
@@ -62,7 +61,7 @@ function Form() {
           placeholder="message"
           type="text"
           onChange={(e) => dispatch(setMessage(e.target.value))}
-          value={formData.message}
+          value={data.message}
           required
         />
         <input
@@ -71,7 +70,7 @@ function Form() {
           placeholder="tags"
           type="text"
           onChange={(e) => dispatch(setTags(e.target.value))}
-          value={formData.tags}
+          value={data.tags}
         />
         <div className="filepicker">
           <FileBase
@@ -81,9 +80,16 @@ function Form() {
             onDone={({ base64 }) => dispatch(setFile(base64))}
           />
         </div>
-        <button className="btn btn-primary" type="submit">
-          Add
-        </button>
+        {!updateMode && (
+          <button className="btn btn-primary" type="submit">
+            Add
+          </button>
+        )}
+        {updateMode && (
+          <button className="btn btn-primary" type="submit">
+            Update
+          </button>
+        )}
         <button className="btn btn-secondary" onClick={(e) => handleClear(e)}>
           Clear
         </button>

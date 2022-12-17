@@ -1,8 +1,17 @@
 import React from "react";
 import moment from "moment";
 import "./styles.css";
+import { useDispatch } from "react-redux";
+import { setUpdateMode, setFormData } from "../../../features/form/formSlice";
 
 function Post({ post }) {
+  const dispatch = useDispatch();
+
+  const handleEditClick = (post) => {
+    dispatch(setUpdateMode(true));
+    dispatch(setFormData(post));
+  };
+
   return (
     <div className="card">
       <img
@@ -23,7 +32,7 @@ function Post({ post }) {
         <p className="card-text">{moment(post.createdAt).fromNow()}</p>
         <p className="card-text">{post.message}</p>
         <button>Like: {post.likeCount}</button>
-        <button onClick={() => {}}>Edit</button>
+        <button onClick={() => handleEditClick(post)}>Edit</button>
         <button>Delete</button>
       </div>
     </div>

@@ -12,5 +12,6 @@ export const createPost = createAsyncThunk("post/createPost", (post) => {
 });
 
 export const updatePost = createAsyncThunk("post/updatePost", (id, post) => {
-  return axios.patch(`${url}/${id}`, post);
+  console.log(`${url}${id}`);
+  return axios.patch(`${url}${id}`, post);
 });
