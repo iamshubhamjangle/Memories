@@ -3,6 +3,7 @@ import {
   createPost,
   deletePost,
   fetchPosts,
+  likePost,
   updatePost,
 } from "../../api/api.js";
 
@@ -82,6 +83,18 @@ const postSlice = createSlice({
     builder.addCase(deletePost.rejected, (state, action) => {
       console.log("delete rejected", action);
       state.loading = false;
+    });
+    /**
+     * LIKE A POST
+     */
+    builder.addCase(likePost.pending, (state) => {
+      console.log("like pending");
+    });
+    builder.addCase(likePost.fulfilled, (state, action) => {
+      console.log("like successful", action);
+    });
+    builder.addCase(likePost.rejected, (state, action) => {
+      console.log("like rejected", action);
     });
   },
 });

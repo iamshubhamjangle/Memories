@@ -38,3 +38,19 @@ export const deletePost = createAsyncThunk(
     return result;
   }
 );
+
+/**
+ * LIKE A POST
+ */
+export const likePost = createAsyncThunk(
+  "post/likePost",
+  async (id, { dispatch }) => {
+    const result = await axios.patch(`${url}/like/${id}`);
+
+    if (result.status == 201) {
+      dispatch(fetchPosts());
+    }
+
+    return result;
+  }
+);
