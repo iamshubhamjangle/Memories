@@ -3,6 +3,7 @@ import moment from "moment";
 import "./styles.css";
 import { useDispatch } from "react-redux";
 import { setUpdateMode, setFormData } from "../../../features/form/formSlice";
+import { deletePost } from "../../../api/api";
 
 function Post({ post }) {
   const dispatch = useDispatch();
@@ -10,6 +11,10 @@ function Post({ post }) {
   const handleEditClick = (post) => {
     dispatch(setUpdateMode(true));
     dispatch(setFormData(post));
+  };
+
+  const handleDeleteClick = (_id) => {
+    dispatch(deletePost(_id));
   };
 
   return (
@@ -33,7 +38,7 @@ function Post({ post }) {
         <p className="card-text">{post.message}</p>
         <button>Like: {post.likeCount}</button>
         <button onClick={() => handleEditClick(post)}>Edit</button>
-        <button>Delete</button>
+        <button onClick={() => handleDeleteClick(post._id)}>Delete</button>
       </div>
     </div>
   );

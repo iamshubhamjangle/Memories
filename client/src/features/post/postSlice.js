@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createPost, fetchPosts, updatePost } from "../../api/api.js";
+import {
+  createPost,
+  deletePost,
+  fetchPosts,
+  updatePost,
+} from "../../api/api.js";
 
 const initialState = {
   loading: false,
@@ -61,6 +66,21 @@ const postSlice = createSlice({
     });
     builder.addCase(updatePost.rejected, (state, action) => {
       console.log("update rejected", action);
+      state.loading = false;
+    });
+    /**
+     * DELETE POST
+     */
+    builder.addCase(deletePost.pending, (state) => {
+      console.log("delete pending");
+      state.loading = true;
+    });
+    builder.addCase(deletePost.fulfilled, (state, action) => {
+      console.log("delete successful", action);
+      state.loading = false;
+    });
+    builder.addCase(deletePost.rejected, (state, action) => {
+      console.log("delete rejected", action);
       state.loading = false;
     });
   },

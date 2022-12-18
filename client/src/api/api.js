@@ -26,3 +26,15 @@ export const updatePost = createAsyncThunk(
     return result;
   }
 );
+
+export const deletePost = createAsyncThunk(
+  "post/deletePost",
+  async (id, { dispatch }) => {
+    const result = await axios.delete(`${url}/${id}`);
+    if (result.status == 201) {
+      dispatch(fetchPosts());
+    }
+
+    return result;
+  }
+);
