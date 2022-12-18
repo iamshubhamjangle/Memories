@@ -48,6 +48,21 @@ const postSlice = createSlice({
       console.log("add rejected", action);
       state.loading = false;
     });
+    /**
+     * UPDATE POST
+     */
+    builder.addCase(updatePost.pending, (state) => {
+      console.log("update pending");
+      state.loading = true;
+    });
+    builder.addCase(updatePost.fulfilled, (state, action) => {
+      console.log("update successful", action);
+      state.loading = false;
+    });
+    builder.addCase(updatePost.rejected, (state, action) => {
+      console.log("update rejected", action);
+      state.loading = false;
+    });
   },
 });
 

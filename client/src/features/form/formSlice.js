@@ -3,11 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   updateMode: false,
   data: {
-    creator: "",
+    _id: "",
     title: "",
     message: "",
+    creator: "",
     tags: "",
     selectedFile: "",
+    likeCount: 0,
+    createdAt: "",
   },
 };
 
@@ -31,11 +34,14 @@ const formSlice = createSlice({
       state.data.selectedFile = payload;
     },
     clearFormData: (state) => {
-      state.data.creator = "";
+      state.data._id = "";
       state.data.title = "";
       state.data.message = "";
+      state.data.creator = "";
       state.data.tags = "";
       state.data.selectedFile = "";
+      state.data.likeCount = 0;
+      state.data.createdAt = "";
       state.updateMode = false;
     },
     setUpdateMode: (state, { payload }) => {
@@ -48,11 +54,25 @@ const formSlice = createSlice({
   extraReducers: {
     // Dependent Reducer
     ["post/createPost/fulfilled"]: (state) => {
-      state.data.creator = "";
+      state.data._id = "";
       state.data.title = "";
       state.data.message = "";
+      state.data.creator = "";
       state.data.tags = "";
       state.data.selectedFile = "";
+      state.data.likeCount = 0;
+      state.data.createdAt = "";
+      state.updateMode = false;
+    },
+    ["post/updatePost/fulfilled"]: (state) => {
+      state.data._id = "";
+      state.data.title = "";
+      state.data.message = "";
+      state.data.creator = "";
+      state.data.tags = "";
+      state.data.selectedFile = "";
+      state.data.likeCount = 0;
+      state.data.createdAt = "";
       state.updateMode = false;
     },
   },
@@ -64,7 +84,7 @@ export const {
   setTitle,
   setMessage,
   setTags,
-  setFile,
+  setSelectedFile,
   clearFormData,
   setUpdateMode,
   setFormData,

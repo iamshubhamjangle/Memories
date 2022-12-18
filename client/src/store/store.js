@@ -7,6 +7,7 @@ const store = configureStore({
     post: postReducer,
     form: formReducer,
   },
+  middleware: getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export default store;

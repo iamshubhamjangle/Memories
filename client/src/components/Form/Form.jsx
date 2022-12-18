@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../api/api";
@@ -8,7 +8,7 @@ import {
   setTitle,
   setMessage,
   setTags,
-  setFile,
+  setSelectedFile,
 } from "../../features/form/formSlice";
 import "./styles.css";
 
@@ -28,7 +28,7 @@ function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (updateMode) dispatch(updatePost(data._id, data));
+    if (updateMode) dispatch(updatePost(data));
     else dispatch(createPost(data));
   };
 
@@ -77,7 +77,7 @@ function Form() {
             type="file"
             multiple={false}
             name="selectedFile"
-            onDone={({ base64 }) => dispatch(setFile(base64))}
+            onDone={({ base64 }) => dispatch(setSelectedFile(base64))}
           />
         </div>
         {!updateMode && (

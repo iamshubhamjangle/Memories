@@ -23,10 +23,8 @@ export const createPost = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
-  const { _id } = req.params;
+  const { id: _id } = req.params;
   const post = req.body;
-
-  console.log("update", req.body);
 
   // If incoming _id is not a mongoose id
   if (!mongoose.Types.ObjectId.isValid(_id)) {
@@ -37,5 +35,5 @@ export const updatePost = async (req, res) => {
     new: true,
   });
 
-  res.status(201).json(updatePost);
+  res.status(201).json(updatedPost);
 };
