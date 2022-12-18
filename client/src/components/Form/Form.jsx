@@ -34,7 +34,7 @@ function Form() {
 
   return (
     <div className="container">
-      <p>data :{JSON.stringify(data)}</p>
+      {/* <p>data :{JSON.stringify(data)}</p> */}
       <h1>{updateMode ? "Update" : "Create"} a memory</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
         <input
