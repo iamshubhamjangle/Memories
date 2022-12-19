@@ -38,6 +38,7 @@ function Post({ post }) {
             width="30px"
             height="30px"
           ></img>
+
           <p className="m-0 flex-grow-1">@{post.creator}</p>
           <p className="m-0 text-end">{moment(post.createdAt).fromNow()}</p>
         </div>

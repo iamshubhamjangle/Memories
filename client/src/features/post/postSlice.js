@@ -89,12 +89,15 @@ const postSlice = createSlice({
      */
     builder.addCase(likePost.pending, (state) => {
       console.log("like pending");
+      state.loading = true;
     });
     builder.addCase(likePost.fulfilled, (state, action) => {
       console.log("like successful", action);
+      state.loading = false;
     });
     builder.addCase(likePost.rejected, (state, action) => {
       console.log("like rejected", action);
+      state.loading = false;
     });
   },
 });
