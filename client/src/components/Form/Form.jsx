@@ -69,7 +69,7 @@ function Form() {
           name="tags"
           placeholder="tags"
           type="text"
-          onChange={(e) => dispatch(setTags(e.target.value))}
+          onChange={(e) => dispatch(setTags(e.target.value.split(",")))}
           value={data.tags}
         />
         <div className="filepicker">

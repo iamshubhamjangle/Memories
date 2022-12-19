@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
 import "./styles.css";
 import { useDispatch } from "react-redux";
 import { setUpdateMode, setFormData } from "../../../features/form/formSlice";
 import { deletePost, likePost } from "../../../api/api";
+import profile from "../../../assets/profile.png";
 
 function Post({ post }) {
   const dispatch = useDispatch();
@@ -21,30 +22,72 @@ function Post({ post }) {
     dispatch(likePost(_id));
   };
 
+  useEffect(() => {
+    console.log(post);
+  }, [post]);
+
   return (
     <div className="card">
-      <img
-        src="https://th.bing.com/th/id/R.5420c0857fb3d070224712512ae45af0?rik=b7EMRer0hoUE7A&riu=http%3a%2f%2fwww.liveenhanced.com%2fwp-content%2fuploads%2f2018%2f03%2fTourist-Spots-In-The-Philippines.jpg&ehk=UACkzzAWbVDNetxUez2LFfZmDX6jlJj2%2fs5nEijrHpU%3d&risl=&pid=ImgRaw&r=0"
-        className="card-img-top"
-        alt={post.title}
-      />
+      {/* header */}
+      <div class="card-header">
+        <div className="d-flex  align-items-center fw-light">
+          <img
+            className="my-0 me-1"
+            src={profile}
+            alt=""
+            width="30px"
+            height="30px"
+          ></img>
+          <p className="m-0 flex-grow-1">@{post.creator}</p>
+          <p className="m-0 text-end">{moment(post.createdAt).fromNow()}</p>
+        </div>
+      </div>
+      {/* image */}
+      <img src={post.selectedFile} className="card-img-top" alt={post.title} />
+
+      {/* Card Body */}
       <div className="card-body">
+        {/* tags */}
         {post.tags.map((tag, idx) => {
           return (
-            <span key={idx} className="badge bg-dark">
-              {tag}
+            <span id="idx" className="fw-light fst-italic">
+              #{tag + " "}
             </span>
           );
         })}
-        <h5 className="card-title">{post.title}</h5>
-        <p className="card-text">@{post.creator}</p>
-        <p className="card-text">{moment(post.createdAt).fromNow()}</p>
+
+        {/* title */}
+        <h5 className="card-title fw-bold my-2">{post.title}</h5>
+
+        {/* body */}
         <p className="card-text">{post.message}</p>
-        <button onClick={() => handleLikeClick(post._id)}>
-          Like: {post.likeCount}
-        </button>
-        <button onClick={() => handleEditClick(post)}>Edit</button>
-        <button onClick={() => handleDeleteClick(post._id)}>Delete</button>
+
+        {/* Actions */}
+        <div className="d-flex">
+          <div
+            className="mx-1"
+            type="button"
+            onClick={() => handleLikeClick(post._id)}
+          >
+            <i id="likePostIcon" class="fa-solid fa-heart fa-xl"></i>{" "}
+            {post.likeCount}
+          </div>
+          <div className="flex-grow-1"></div>
+          <div
+            className="mx-1"
+            type="button"
+            onClick={() => handleEditClick(post)}
+          >
+            <i class="fa-solid fa-pen-to-square fa-xl"></i>
+          </div>
+          <div
+            className="mx-1"
+            type="button"
+            onClick={() => handleDeleteClick(post._id)}
+          >
+            <i class="fa-solid fa-trash fa-xl"></i>
+          </div>
+        </div>
       </div>
     </div>
   );

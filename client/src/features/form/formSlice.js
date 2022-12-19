@@ -7,7 +7,7 @@ const initialState = {
     title: "",
     message: "",
     creator: "",
-    tags: "",
+    tags: [],
     selectedFile: "",
     likeCount: 0,
     createdAt: "",
@@ -38,7 +38,7 @@ const formSlice = createSlice({
       state.data.title = "";
       state.data.message = "";
       state.data.creator = "";
-      state.data.tags = "";
+      state.data.tags = [];
       state.data.selectedFile = "";
       state.data.likeCount = 0;
       state.data.createdAt = "";
@@ -58,7 +58,7 @@ const formSlice = createSlice({
       state.data.title = "";
       state.data.message = "";
       state.data.creator = "";
-      state.data.tags = "";
+      state.data.tags = [];
       state.data.selectedFile = "";
       state.data.likeCount = 0;
       state.data.createdAt = "";
@@ -69,7 +69,7 @@ const formSlice = createSlice({
       state.data.title = "";
       state.data.message = "";
       state.data.creator = "";
-      state.data.tags = "";
+      state.data.tags = [];
       state.data.selectedFile = "";
       state.data.likeCount = 0;
       state.data.createdAt = "";

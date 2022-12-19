@@ -2,3 +2,7 @@
   width: 18rem;
   margin: 20px 5px;
 }
+
+#likePostIcon {
+  color: rgb(221, 7, 7);
+}
