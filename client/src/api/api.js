@@ -3,16 +3,25 @@ import axios from "axios";
 
 const url = "http://localhost:5000/posts";
 
+/**
+ * FETCH POST
+ */
 export const fetchPosts = createAsyncThunk("post/fetchPosts", async () => {
   return await axios.get(url).then((res) => res.data);
 });
 
+/**
+ * CREATE POST
+ */
 export const createPost = createAsyncThunk("post/createPost", async (post) => {
   const { title, message, creator, tags, selectedFile } = post;
   const data = { title, message, creator, tags, selectedFile };
   return await axios.post(url, data).then((res) => res.data);
 });
 
+/**
+ * UPDATE POST
+ */
 export const updatePost = createAsyncThunk(
   "post/updatePost",
   async (post, { dispatch }) => {
@@ -27,6 +36,9 @@ export const updatePost = createAsyncThunk(
   }
 );
 
+/**
+ * DELETE POST
+ */
 export const deletePost = createAsyncThunk(
   "post/deletePost",
   async (id, { dispatch }) => {
