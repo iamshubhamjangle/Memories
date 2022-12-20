@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import memories from "../../assets/memories.png";
 import "./styles.css";
 
@@ -29,15 +31,11 @@ function Nav() {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
-                Home
-              </a>
+            <li className="nav-link active">
+              <Link to="/">Home</Link>
             </li>
-            <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
-                Sign in
-              </a>
+            <li className="nav-link active">
+              <Link to="/auth">Sign in</Link>
             </li>
           </ul>
         </div>
