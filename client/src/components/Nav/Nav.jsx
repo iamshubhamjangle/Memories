@@ -1,5 +1,6 @@
 import React from "react";
 import memories from "../../assets/memories.png";
+import "./styles.css";
 
 function Nav() {
   return (
@@ -28,11 +29,16 @@ function Nav() {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
-            {/* <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="#">
-            Home
-          </a>
-        </li> */}
+            <li className="nav-item">
+              <a className="nav-link active" aria-current="page" href="#">
+                Home
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link active" aria-current="page" href="#">
+                Sign in
+              </a>
+            </li>
           </ul>
         </div>
       </div>

@@ -29,7 +29,7 @@ function Post({ post }) {
   return (
     <div className="card mx-3">
       {/* header */}
-      <div class="card-header">
+      <div className="card-header">
         <div className="d-flex  align-items-center fw-light">
           <img
             className="my-0 me-1"
@@ -51,7 +51,7 @@ function Post({ post }) {
         {/* tags */}
         {post.tags.map((tag, idx) => {
           return (
-            <span id="idx" className="fw-light fst-italic">
+            <span key={idx} id="idx" className="fw-light fst-italic">
               #{tag + " "}
             </span>
           );
@@ -70,7 +70,7 @@ function Post({ post }) {
             type="button"
             onClick={() => handleLikeClick(post._id)}
           >
-            <i id="likePostIcon" class="fa-solid fa-heart fa-xl"></i>{" "}
+            <i id="likePostIcon" className="fa-solid fa-heart fa-xl"></i>{" "}
             {post.likeCount}
           </div>
           <div className="flex-grow-1"></div>
@@ -79,14 +79,14 @@ function Post({ post }) {
             type="button"
             onClick={() => handleEditClick(post)}
           >
-            <i class="fa-solid fa-pen-to-square fa-xl"></i>
+            <i className="fa-solid fa-pen-to-square fa-xl"></i>
           </div>
           <div
             className="mx-1"
             type="button"
             onClick={() => handleDeleteClick(post._id)}
           >
-            <i class="fa-solid fa-trash fa-xl"></i>
+            <i className="fa-solid fa-trash fa-xl"></i>
           </div>
         </div>
       </div>

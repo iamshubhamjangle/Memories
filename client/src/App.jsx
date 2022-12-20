@@ -1,17 +1,22 @@
-import React, { useState } from "react";
-import Form from "./components/Form/Form";
-import Posts from "./components/Posts/Posts";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+
 import Nav from "./components/Nav/Nav";
-import "./styles.css";
 import Loading from "./components/Utils/Loading";
+import Home from "./components/Home/Home";
+import Auth from "./components/Auth/Auth";
+
+import "./styles.css";
 
 const App = () => {
   return (
-    <div>
+    <div id="App">
       <Nav />
       <Loading />
-      <Form />
-      <Posts />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<Auth />} />
+      </Routes>
     </div>
   );
 };

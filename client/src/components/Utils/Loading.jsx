@@ -6,7 +6,7 @@ function Loading() {
   const { loading } = useSelector((store) => store.post);
 
   return (
-    <>
+    <div id="loading">
       <main className={`text-center my-2 ${loading ? "show" : "hidden"}`}>
         <svg
           className="ip"
@@ -49,7 +49,7 @@ function Loading() {
           </g>
         </svg>
       </main>
-    </>
+    </div>
   );
 }
 
