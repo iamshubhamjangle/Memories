@@ -6,3 +6,35 @@
 #likePostIcon {
   color: rgb(221, 7, 7);
 }
+
+.post-body-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 3; /* number of lines to show */
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.post-tags {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.post-tags::-webkit-scrollbar {
+  height: 5px;
+}
+
+.post-tags::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: rgb(179, 179, 179);
+}
+
+/* .post-tags {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.post-tags::-webkit-scrollbar {
+  display: none;
+} */

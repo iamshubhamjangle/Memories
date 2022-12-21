@@ -49,19 +49,23 @@ function Post({ post }) {
       {/* Card Body */}
       <div className="card-body">
         {/* tags */}
-        {post.tags.map((tag, idx) => {
-          return (
-            <span key={idx} id="idx" className="fw-light fst-italic">
-              #{tag + " "}
-            </span>
-          );
-        })}
+        <div className="post-tags">
+          <div className="d-flex">
+            {post.tags.map((tag, idx) => {
+              return (
+                <span key={idx} id="idx" className="fw-light fst-italic me-1">
+                  #{tag}
+                </span>
+              );
+            })}
+          </div>
+        </div>
 
         {/* title */}
         <h5 className="card-title fw-bold my-2">{post.title}</h5>
 
         {/* body */}
-        <p className="card-text">{post.message}</p>
+        <p className="card-text post-body-text">{post.message}</p>
 
         {/* Actions */}
         <div className="d-flex">
