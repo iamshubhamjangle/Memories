@@ -1,6 +1,5 @@
 .card {
   width: 18rem;
-  margin: 20px 5px;
 }
 
 #likePostIcon {
@@ -29,12 +28,3 @@
   border-radius: 20px;
   background: rgb(179, 179, 179);
 }
-
-/* .post-tags {
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-.post-tags::-webkit-scrollbar {
-  display: none;
-} */

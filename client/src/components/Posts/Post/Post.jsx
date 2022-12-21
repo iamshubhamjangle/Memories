@@ -27,7 +27,7 @@ function Post({ post }) {
   }, [post]);
 
   return (
-    <div className="card mx-3">
+    <div className="card m-2">
       {/* header */}
       <div className="card-header">
         <div className="d-flex  align-items-center fw-light">

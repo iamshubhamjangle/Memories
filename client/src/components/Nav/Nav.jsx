@@ -18,8 +18,9 @@ function Nav() {
   console.log(oAuth);
 
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav className="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
       <div className="container-fluid">
+        {/* Branding */}
         <a className="navbar-brand" href="#">
           <img
             src={memories}
@@ -30,6 +31,7 @@ function Nav() {
           />
           Memories
         </a>
+        {/* Hamburger */}
         <button
           className="navbar-toggler"
           type="button"
@@ -41,20 +43,33 @@ function Nav() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+        {/* Items */}
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav">
+          <ul className="navbar-nav me-auto">
             <li className="nav-link">
               <NavLink to="/">Home</NavLink>
             </li>
+            <li className="nav-link">
+              <a>My Memories</a>
+            </li>
+            <li className="nav-link">
+              <a>About</a>
+            </li>
+          </ul>
+          <ul className="navbar-nav">
             {!oAuth && (
               <li className="nav-link">
                 <NavLink to="/auth">Sign in</NavLink>
               </li>
             )}
-            {oAuth && <li className="nav-link">Hello {oAuth.name}!</li>}
+            {oAuth && (
+              <li className="nav-link">
+                <a>Hello {oAuth.name}!</a>
+              </li>
+            )}
             {oAuth && (
               <li className="nav-link" onClick={() => logout()}>
-                Logout
+                <a>Logout</a>
               </li>
             )}
           </ul>

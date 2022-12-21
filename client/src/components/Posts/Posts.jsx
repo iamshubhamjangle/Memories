@@ -14,7 +14,7 @@ function Posts() {
 
   return (
     <div className="container">
-      <h2>
+      <h2 className="my-4">
         Memories
         <span className="fs-6">
           {" ( "}
