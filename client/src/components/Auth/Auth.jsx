@@ -6,7 +6,7 @@ function Auth() {
   return (
     <div className="container">
       <div className="card w-100 shadow">
-        <div class="card-header p-3">
+        <div className="card-header p-3">
           {isSignIn && (
             <span className="fw-bold">Signin & Let's get this started!</span>
           )}
