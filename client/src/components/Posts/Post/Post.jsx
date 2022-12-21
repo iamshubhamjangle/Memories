@@ -23,7 +23,7 @@ function Post({ post }) {
   };
 
   useEffect(() => {
-    console.log(post);
+    // console.log(post);
   }, [post]);
 
   return (

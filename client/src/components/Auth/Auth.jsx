@@ -1,12 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
+
 import "./styles.css";
+import { setUser } from "../../features/user/userSlice";
 
 function Auth() {
   const [isSignIn, setIsSignIn] = useState(true);
   const [hidePassword, setHidePassword] = useState(true);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      dispatch(setUser(storedUser));
+      navigate("/");
+    }
+  }, []);
 
   const handleTogglePasswordVisibility = () => {
     setHidePassword(!hidePassword);
+  };
+
+  const googleSuccess = async (res) => {
+    const { email, name, picture, sub: id } = jwtDecode(res.credential);
+    const user = { email, name, picture, id };
+    localStorage.setItem("user", JSON.stringify(user));
+    dispatch(setUser(user));
+    navigate("/");
+  };
+
+  const googleFailure = (err) => {
+    console.log("Google Login Failed: ", err);
   };
 
   return (
@@ -22,6 +50,13 @@ function Auth() {
             )}
           </div>
           <form className="card-body p-3">
+            <div className="mb-3">
+              <GoogleLogin
+                theme="filled_blue"
+                onSuccess={googleSuccess}
+                onError={googleFailure}
+              />
+            </div>
             {!isSignIn && (
               <div className="d-flex gap-3">
                 <div className="mb-3 flex-fill">
