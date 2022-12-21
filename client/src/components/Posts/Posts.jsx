@@ -14,7 +14,14 @@ function Posts() {
 
   return (
     <div className="container">
-      <h2>Posts - {posts.length ? posts.length : null}</h2>
+      <h2>
+        Memories
+        <span className="fs-6">
+          {" ( "}
+          {posts.length ? posts.length : null}
+          {" found )"}
+        </span>
+      </h2>
       <div className="d-flex flex-wrap justify-content-center">
         {!posts && (
           <div className="text-center m-5">

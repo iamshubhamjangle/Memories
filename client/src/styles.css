@@ -1,3 +1,7 @@
 #App {
   height: 100vh;
 }
+
+.card {
+  margin: 0;
+}
