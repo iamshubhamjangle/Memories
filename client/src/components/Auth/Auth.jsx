@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 
 import "./styles.css";
 import { setUser } from "../../features/user/userSlice";
@@ -53,6 +53,7 @@ function Auth() {
             <div className="mb-3">
               <GoogleLogin
                 theme="filled_blue"
+                width="200px"
                 onSuccess={googleSuccess}
                 onError={googleFailure}
               />
