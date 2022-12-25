@@ -11,8 +11,16 @@ export const getPosts = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-  const post = req.body;
-  const newPost = new PostMessage(post);
+  const { name, title, message, tags, selectedFile } = req.body;
+  const newPost = new PostMessage({
+    title,
+    message,
+    tags,
+    selectedFile,
+    name,
+    creator: req.userId,
+    createdAt: new Date().toISOString(),
+  });
 
   try {
     await newPost.save();
@@ -24,7 +32,15 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   const { id } = req.params;
-  const post = req.body;
+  const { name, title, message, tags, selectedFile } = req.body;
+  const post = {
+    name,
+    title,
+    message,
+    tags,
+    selectedFile,
+    creator: req.userId,
+  };
 
   // If incoming id is not a mongoose id
   if (!mongoose.Types.ObjectId.isValid(id)) {
