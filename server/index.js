@@ -16,7 +16,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.use("/posts", postRoute);
-app.use("/user", userRoute);
+app.use("/users", userRoute);
 
 const CONNECTION_URL = process.env.DB_CONNECTION_URL;
 const PORT = process.env.PORT || 5000;
