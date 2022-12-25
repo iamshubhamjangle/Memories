@@ -1,21 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import memories from "../../assets/memories.png";
-import { removeUser } from "../../features/user/userSlice";
+import { removeUser, setIsLoggedIn } from "../../features/user/userSlice";
 import "./styles.css";
 
 function Nav() {
-  const { oAuth } = useSelector((store) => store.user);
+  const { isLoggedIn } = useSelector((store) => store.user);
+  const [user, setUser] = useState(null);
   const dispatch = useDispatch();
 
   const logout = () => {
-    localStorage.removeItem("user");
+    console.log("dispatch removeUser()");
     dispatch(removeUser());
   };
 
-  console.log(oAuth);
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    console.log("storedUser ", storedUser);
+    if (storedUser) {
+      setUser(storedUser);
+      dispatch(setIsLoggedIn(true));
+    } else {
+      setUser(null);
+      dispatch(setIsLoggedIn(false));
+    }
+  }, [isLoggedIn]);
 
   return (
     <nav className="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
@@ -57,17 +68,17 @@ function Nav() {
             </li>
           </ul>
           <ul className="navbar-nav">
-            {!oAuth && (
+            {!user && (
               <li className="nav-link">
                 <NavLink to="/auth">Sign in</NavLink>
               </li>
             )}
-            {oAuth && (
+            {user && (
               <li className="nav-link">
-                <a>Hello {oAuth.name}!</a>
+                <a>Hello {user?.name}!</a>
               </li>
             )}
-            {oAuth && (
+            {user && (
               <li className="nav-link" onClick={() => logout()}>
                 <a>Logout</a>
               </li>

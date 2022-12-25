@@ -9,6 +9,7 @@ function Posts() {
   const posts = useSelector((store) => store.post.posts);
 
   useEffect(() => {
+    console.log("Posts.jsx");
     dispatch(fetchPosts());
   }, []);
 

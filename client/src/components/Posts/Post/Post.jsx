@@ -22,10 +22,6 @@ function Post({ post }) {
     dispatch(likePost(_id));
   };
 
-  useEffect(() => {
-    // console.log(post);
-  }, [post]);
-
   return (
     <div className="card m-2">
       {/* header */}

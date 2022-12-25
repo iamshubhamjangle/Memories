@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { signIn } from "../../api/user";
 
 const initialState = {
-  oAuth: null,
+  isLoggedIn: false,
   loading: false,
+  error: "",
 };
 
 const userSlice = createSlice({
@@ -10,35 +12,40 @@ const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     setUser: (state, { payload }) => {
-      state.oAuth = payload;
+      localStorage.setItem("user", JSON.stringify(payload));
+      state.isLoggedIn = true;
     },
     removeUser: (state) => {
-      state.oAuth = null;
+      localStorage.removeItem("user");
+      state.isLoggedIn = false;
+    },
+    setIsLoggedIn: (state, { payload }) => {
+      state.isLoggedIn = payload;
     },
   },
   extraReducers: (builder) => {
     /**
      * LOGIN USER
      */
-    // builder.addCase(fetchPosts.pending, (state) => {
-    //   console.log("fetch pending");
-    //   state.loading = true;
-    //   state.error = "";
-    // });
-    // builder.addCase(fetchPosts.fulfilled, (state, action) => {
-    //   console.log("fetch successful", action);
-    //   state.loading = false;
-    //   state.posts = action.payload;
-    //   state.error = "";
-    // });
-    // builder.addCase(fetchPosts.rejected, (state, action) => {
-    //   console.log("fetch rejected", action);
-    //   state.loading = false;
-    //   state.posts = [];
-    //   state.error = action.payload;
-    // });
+    builder.addCase(signIn.pending, (state) => {
+      console.log("signIn pending");
+      state.loading = true;
+      state.error = "";
+    });
+    builder.addCase(signIn.fulfilled, (state, action) => {
+      console.log("signIn successful", action);
+      state.loading = false;
+      state.error = "";
+      state.isLoggedIn = true;
+    });
+    builder.addCase(signIn.rejected, (state, action) => {
+      console.log("signIn rejected", action);
+      state.loading = false;
+      state.error = action.payload;
+      state.isLoggedIn = false;
+    });
   },
 });
 
 export default userSlice.reducer;
-export const { setUser, removeUser } = userSlice.actions;
+export const { setUser, removeUser, setIsLoggedIn } = userSlice.actions;

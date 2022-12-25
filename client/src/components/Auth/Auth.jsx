@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { GoogleLogin } from "@react-oauth/google";
 
 import "./styles.css";
-import { setUser } from "../../features/user/userSlice";
+import { setIsLoggedIn, setUser } from "../../features/user/userSlice";
+import { signIn, signUp } from "../../api/user";
 
 const initialState = {
   firstName: "",
@@ -19,16 +20,16 @@ function Auth() {
   const [isSignIn, setIsSignIn] = useState(true);
   const [hidePassword, setHidePassword] = useState(true);
   const [formData, setFormData] = useState(initialState);
+
+  const { isLoggedIn } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
-      dispatch(setUser(storedUser));
-      navigate("/");
-    }
-  }, []);
+    console.log("Auth.jsx");
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) navigate("/");
+  }, [isLoggedIn]);
 
   const handleTogglePasswordVisibility = () => {
     setHidePassword(!hidePassword);
@@ -37,9 +38,7 @@ function Auth() {
   const googleSuccess = async (res) => {
     const { email, name, picture, sub: id } = jwtDecode(res.credential);
     const user = { email, name, picture, id };
-    localStorage.setItem("user", JSON.stringify(user));
     dispatch(setUser(user));
-    navigate("/");
   };
 
   const googleFailure = (err) => {
@@ -48,11 +47,10 @@ function Auth() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("handle Form submit", formData);
     if (isSignIn) {
-      // Sign in the user
+      dispatch(signIn(formData));
     } else {
-      // Singup the user
+      dispatch(signUp(formData));
     }
   };
 
