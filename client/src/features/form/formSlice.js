@@ -6,7 +6,6 @@ const initialState = {
     _id: "",
     title: "",
     message: "",
-    creator: "",
     tags: [],
     selectedFile: "",
     likeCount: 0,

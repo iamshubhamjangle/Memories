@@ -1,22 +1,30 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const url = import.meta.env.VITE_BACKEND_ENDPOINT + "/posts";
+const API = axios.create({ baseURL: import.meta.env.VITE_BACKEND_ENDPOINT });
+
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem("user")) {
+    const { token } = JSON.parse(localStorage.getItem("user"));
+    req.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return req;
+});
 
 /**
  * FETCH POST
  */
 export const fetchPosts = createAsyncThunk("post/fetchPosts", async () => {
-  return await axios.get(url).then((res) => res.data);
+  return await API.get("/posts").then((res) => res.data);
 });
 
 /**
  * CREATE POST
  */
 export const createPost = createAsyncThunk("post/createPost", async (post) => {
-  const { title, message, creator, tags, selectedFile } = post;
-  const data = { title, message, creator, tags, selectedFile };
-  return await axios.post(url, data).then((res) => res.data);
+  console.log("createPost", post);
+  return await API.post("/posts", post).then((res) => res.data);
 });
 
 /**
@@ -24,11 +32,13 @@ export const createPost = createAsyncThunk("post/createPost", async (post) => {
  */
 export const updatePost = createAsyncThunk(
   "post/updatePost",
-  async (post, { dispatch }) => {
-    const { _id, title, message, creator, tags, selectedFile } = post;
+  async (
+    { _id, title, message, creator, tags, selectedFile },
+    { dispatch }
+  ) => {
     const data = { _id, title, message, creator, tags, selectedFile };
 
-    const result = await axios.patch(`${url}/${_id}`, data);
+    const result = await API.patch(`posts/${_id}`, data);
     if (result.status == 201) {
       dispatch(fetchPosts());
     }
@@ -42,7 +52,8 @@ export const updatePost = createAsyncThunk(
 export const deletePost = createAsyncThunk(
   "post/deletePost",
   async (id, { dispatch }) => {
-    const result = await axios.delete(`${url}/${id}`);
+    const result = await API.delete(`posts/${id}`);
+
     if (result.status == 201) {
       dispatch(fetchPosts());
     }
@@ -57,7 +68,7 @@ export const deletePost = createAsyncThunk(
 export const likePost = createAsyncThunk(
   "post/likePost",
   async (id, { dispatch }) => {
-    const result = await axios.patch(`${url}/like/${id}`);
+    const result = await API.patch(`posts/like/${id}`);
 
     if (result.status == 201) {
       dispatch(fetchPosts());

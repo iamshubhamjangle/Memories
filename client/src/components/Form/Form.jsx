@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../api/post.js";
 import {
   clearFormData,
-  setCreator,
   setTitle,
   setMessage,
   setTags,
@@ -16,11 +15,6 @@ function Form() {
   const dispatch = useDispatch();
   const { updateMode, data } = useSelector((store) => store.form);
 
-  // const handleChange = (e) => {
-  //   const { value, name } = e.target;
-  //   // dispatch(setFormData({ ...formData, [name]: value }));
-  // };
-
   const handleClear = (e) => {
     e.preventDefault();
     dispatch(clearFormData());
@@ -28,8 +22,9 @@ function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (updateMode) dispatch(updatePost(data));
-    else dispatch(createPost(data));
+    const { name } = JSON.parse(localStorage.getItem("user"));
+    if (updateMode) dispatch(updatePost({ ...data, name }));
+    else dispatch(createPost({ ...data, name }));
   };
 
   return (
@@ -38,15 +33,6 @@ function Form() {
         <div className="card-body m-3">
           <h1>{updateMode ? "Update" : "Create"} a memory</h1>
           <form onSubmit={(e) => handleSubmit(e)}>
-            <input
-              className="form-control"
-              name="creator"
-              placeholder="creator"
-              type="text"
-              onChange={(e) => dispatch(setCreator(e.target.value))}
-              value={data.creator}
-              required
-            />
             <input
               className="form-control"
               name="title"

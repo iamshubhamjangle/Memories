@@ -28,3 +28,10 @@
   border-radius: 20px;
   background: rgb(179, 179, 179);
 }
+
+#post-user-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 80px;
+}
