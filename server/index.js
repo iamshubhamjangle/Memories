@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import ansi from "./node_modules/ansi-colors-es6/index.js";
 import postRoute from "./routes/posts.js";
+import userRoute from "./routes/users.js";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.use("/posts", postRoute);
+app.use("/user", userRoute);
 
 const CONNECTION_URL = process.env.DB_CONNECTION_URL;
 const PORT = process.env.PORT || 5000;
