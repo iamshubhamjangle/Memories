@@ -5,7 +5,7 @@ import {
   fetchPosts,
   likePost,
   updatePost,
-} from "../../api/api.js";
+} from "../../api/post.js";
 
 const initialState = {
   loading: false,

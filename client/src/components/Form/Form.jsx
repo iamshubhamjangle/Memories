@@ -1,7 +1,7 @@
 import React from "react";
 import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, updatePost } from "../../api/api";
+import { createPost, updatePost } from "../../api/post.js";
 import {
   clearFormData,
   setCreator,

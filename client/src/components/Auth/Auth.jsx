@@ -7,9 +7,18 @@ import { GoogleLogin } from "@react-oauth/google";
 import "./styles.css";
 import { setUser } from "../../features/user/userSlice";
 
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
 function Auth() {
   const [isSignIn, setIsSignIn] = useState(true);
   const [hidePassword, setHidePassword] = useState(true);
+  const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -37,10 +46,25 @@ function Auth() {
     console.log("Google Login Failed: ", err);
   };
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    console.log("handle Form submit", formData);
+    if (isSignIn) {
+      // Sign in the user
+    } else {
+      // Singup the user
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
     <div id="Auth-container" className="d-flex align-items-center">
       <div className="container">
         <div className="card w-100 m-0 shadow">
+          {JSON.stringify(formData)}
           <div className="card-header p-3">
             {isSignIn && (
               <span className="fw-bold">Signin & Let's get this started!</span>
@@ -49,7 +73,7 @@ function Auth() {
               <span className="fw-bold">Let's get you onboard!</span>
             )}
           </div>
-          <form className="card-body p-3">
+          <form className="card-body p-3" onSubmit={handleFormSubmit}>
             <div className="mb-3">
               <GoogleLogin
                 theme="filled_blue"
@@ -65,10 +89,13 @@ function Auth() {
                     First Name
                   </label>
                   <input
-                    type="email"
+                    type="text"
                     className="form-control"
                     id="firstName"
+                    name="firstName"
                     aria-describedby="firstName"
+                    onChange={(e) => handleChange(e)}
+                    required={!isSignIn ? true : false}
                   />
                 </div>
                 <div className="mb-3 flex-fill">
@@ -76,10 +103,13 @@ function Auth() {
                     Last Name
                   </label>
                   <input
-                    type="email"
+                    type="text"
+                    name="lastName"
                     className="form-control"
                     id="lastName"
                     aria-describedby="lastName"
+                    onChange={(e) => handleChange(e)}
+                    required={!isSignIn ? true : false}
                   />
                 </div>
               </div>
@@ -90,9 +120,12 @@ function Auth() {
               </label>
               <input
                 type="email"
+                name="email"
                 className="form-control"
                 id="inputEmail1"
                 aria-describedby="inputEmail1"
+                onChange={(e) => handleChange(e)}
+                required={true}
               />
             </div>
             <div className="mb-3">
@@ -103,7 +136,10 @@ function Auth() {
                 <input
                   type={hidePassword && "password"}
                   className="form-control"
+                  name="password"
                   id="password"
+                  onChange={(e) => handleChange(e)}
+                  required={true}
                 />
                 <button
                   className="btn"
@@ -126,6 +162,9 @@ function Auth() {
                     type={hidePassword && "password"}
                     className="form-control"
                     id="confirm-password"
+                    name="confirmPassword"
+                    onChange={(e) => handleChange(e)}
+                    required={!isSignIn ? true : false}
                   />
                   <button
                     className="btn"
@@ -139,21 +178,6 @@ function Auth() {
                     )}
                   </button>
                 </div>
-              </div>
-            )}
-            {!isSignIn && (
-              <div className="mb-3 form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="exampleCheck1"
-                />
-                <label
-                  className="form-check-label form-text"
-                  htmlFor="exampleCheck1"
-                >
-                  I Agree all the Terms and Conditions
-                </label>
               </div>
             )}
             <button type="submit" className="btn btn-primary">

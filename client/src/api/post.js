@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const url = "http://localhost:5000/posts";
+const url = import.meta.env.VITE_BACKEND_ENDPOINT + "/posts";
 
 /**
  * FETCH POST

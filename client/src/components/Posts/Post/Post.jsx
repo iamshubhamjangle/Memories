@@ -3,7 +3,7 @@ import moment from "moment";
 import "./styles.css";
 import { useDispatch } from "react-redux";
 import { setUpdateMode, setFormData } from "../../../features/form/formSlice";
-import { deletePost, likePost } from "../../../api/api";
+import { deletePost, likePost } from "../../../api/post.js";
 import profile from "../../../assets/profile.png";
 
 function Post({ post }) {
