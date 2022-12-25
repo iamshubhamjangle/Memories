@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-// createdAt: { type: Date, default: new Date() },
 const PostSchema = mongoose.Schema({
   title: String,
   message: String,
@@ -8,9 +7,12 @@ const PostSchema = mongoose.Schema({
   tags: [String],
   selectedFile: String,
   likes: { type: [String], default: [] },
-  createdAt: { type: String, default: new Date(Date.now()).toISOString() },
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
 });
 
-const PostMessage = mongoose.model("PostMessage", PostSchema);
+const PostMessage = mongoose.model("posts", PostSchema);
 
 export default PostMessage;
