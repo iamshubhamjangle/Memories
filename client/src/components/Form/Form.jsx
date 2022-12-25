@@ -14,6 +14,7 @@ import "./styles.css";
 function Form() {
   const dispatch = useDispatch();
   const { updateMode, data } = useSelector((store) => store.form);
+  const { isLoggedIn } = useSelector((store) => store.user);
 
   const handleClear = (e) => {
     e.preventDefault();
@@ -26,6 +27,18 @@ function Form() {
     if (updateMode) dispatch(updatePost({ ...data, name }));
     else dispatch(createPost({ ...data, name }));
   };
+
+  if (!isLoggedIn) {
+    return (
+      <div id="form-container">
+        <div id="form-body" className="card">
+          <div className="card-body m-3">
+            <h2>Login to create you own memory!</h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div id="form-container">
