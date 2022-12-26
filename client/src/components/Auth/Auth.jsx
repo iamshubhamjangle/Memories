@@ -36,8 +36,11 @@ function Auth() {
   };
 
   const googleSuccess = async (res) => {
+    // console.log("OAuth - res", res);
+    // console.log("OAuth - res.credential", jwtDecode(res.credential));
     const { email, name, picture, sub: id } = jwtDecode(res.credential);
-    const user = { email, name, picture, id };
+    const token = res.credential;
+    const user = { email, name, picture, id, token };
     dispatch(setUser(user));
   };
 
@@ -62,7 +65,7 @@ function Auth() {
     <div id="Auth-container" className="d-flex align-items-center">
       <div className="container">
         <div className="card w-100 m-0 shadow">
-          {JSON.stringify(formData)}
+          {/* {JSON.stringify(formData)} */}
           <div className="card-header p-3">
             {isSignIn && (
               <span className="fw-bold">Signin & Let's get this started!</span>

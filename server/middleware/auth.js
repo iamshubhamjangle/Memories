@@ -11,11 +11,11 @@ const auth = async (req, res, next) => {
 
     if (token && isCustomAuth) {
       decodedData = jwt.verify(token, process.env.JWT_SECRET);
-
+      console.log("Server token: ", decodedData);
       req.userId = decodedData?.id;
     } else {
       decodedData = jwt.decode(token);
-
+      console.log("OAuth token: ", decodedData);
       req.userId = decodedData?.sub;
     }
 
