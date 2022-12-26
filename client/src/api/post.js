@@ -22,10 +22,20 @@ export const fetchPosts = createAsyncThunk("post/fetchPosts", async () => {
 /**
  * CREATE POST
  */
-export const createPost = createAsyncThunk("post/createPost", async (post) => {
-  console.log("createPost", post);
-  return await API.post("/posts", post).then((res) => res.data);
-});
+export const createPost = createAsyncThunk(
+  "post/createPost",
+  async (post, { rejectWithValue }) => {
+    console.log("createPost", post);
+    return await API.post("/posts", post)
+      .then((res) => res.data)
+      .catch((res) =>
+        rejectWithValue({
+          status: res.response.status,
+          data: res.response.data,
+        })
+      );
+  }
+);
 
 /**
  * UPDATE POST

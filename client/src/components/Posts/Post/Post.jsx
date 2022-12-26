@@ -1,13 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import "./styles.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUpdateMode, setFormData } from "../../../features/form/formSlice";
 import { deletePost, likePost } from "../../../api/post.js";
 import profile from "../../../assets/profile.png";
+import Like from "./Like";
 
 function Post({ post }) {
   const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((store) => store.user);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleEditClick = (post) => {
     dispatch(setUpdateMode(true));
@@ -19,7 +22,8 @@ function Post({ post }) {
   };
 
   const handleLikeClick = (_id) => {
-    dispatch(likePost(_id));
+    if (isLoggedIn) dispatch(likePost(_id));
+    else console.log("Please login to LIKE the post");
   };
 
   return (
@@ -72,24 +76,27 @@ function Post({ post }) {
             type="button"
             onClick={() => handleLikeClick(post._id)}
           >
-            <i id="likePostIcon" className="fa-solid fa-heart fa-xl"></i>{" "}
-            {post.likeCount}
+            <Like likes={post.likes} />
           </div>
           <div className="flex-grow-1"></div>
-          <div
-            className="mx-1"
-            type="button"
-            onClick={() => handleEditClick(post)}
-          >
-            <i className="fa-solid fa-pen-to-square fa-xl"></i>
-          </div>
-          <div
-            className="mx-1"
-            type="button"
-            onClick={() => handleDeleteClick(post._id)}
-          >
-            <i className="fa-solid fa-trash fa-xl"></i>
-          </div>
+          {isLoggedIn && user && user?.id == post.creator && (
+            <div
+              className="mx-1"
+              type="button"
+              onClick={() => handleEditClick(post)}
+            >
+              <i className="fa-solid fa-pen-to-square fa-xl"></i>
+            </div>
+          )}
+          {isLoggedIn && user && user?.id == post.creator && (
+            <div
+              className="mx-1"
+              type="button"
+              onClick={() => handleDeleteClick(post._id)}
+            >
+              <i className="fa-solid fa-trash fa-xl"></i>
+            </div>
+          )}
         </div>
       </div>
     </div>
