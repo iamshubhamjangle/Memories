@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { removeUser } from "../features/user/userSlice";
 
 const API = axios.create({ baseURL: import.meta.env.VITE_BACKEND_ENDPOINT });
 
@@ -11,6 +12,12 @@ API.interceptors.request.use((req) => {
 
   return req;
 });
+
+const handleErrors = (errorCode, dispatch) => {
+  if (errorCode === 405) {
+    dispatch(removeUser());
+  }
+};
 
 /**
  * FETCH POST
@@ -24,16 +31,17 @@ export const fetchPosts = createAsyncThunk("post/fetchPosts", async () => {
  */
 export const createPost = createAsyncThunk(
   "post/createPost",
-  async (post, { rejectWithValue }) => {
+  async (post, { dispatch, rejectWithValue }) => {
     console.log("createPost", post);
     return await API.post("/posts", post)
       .then((res) => res.data)
-      .catch((res) =>
-        rejectWithValue({
+      .catch((res) => {
+        handleErrors(res.response.status, dispatch);
+        return rejectWithValue({
           status: res.response.status,
           data: res.response.data,
-        })
-      );
+        });
+      });
   }
 );
 
@@ -44,11 +52,18 @@ export const updatePost = createAsyncThunk(
   "post/updatePost",
   async (
     { _id, title, message, creator, tags, selectedFile },
-    { dispatch }
+    { dispatch, rejectWithValue }
   ) => {
     const data = { _id, title, message, creator, tags, selectedFile };
 
-    const result = await API.patch(`posts/${_id}`, data);
+    const result = await API.patch(`posts/${_id}`, data).catch((res) => {
+      handleErrors(res.response.status, dispatch);
+      return rejectWithValue({
+        status: res.response.status,
+        data: res.response.data,
+      });
+    });
+
     if (result.status == 201) {
       dispatch(fetchPosts());
     }
@@ -61,8 +76,14 @@ export const updatePost = createAsyncThunk(
  */
 export const deletePost = createAsyncThunk(
   "post/deletePost",
-  async (id, { dispatch }) => {
-    const result = await API.delete(`posts/${id}`);
+  async (id, { dispatch, rejectWithValue }) => {
+    const result = await API.delete(`posts/${id}`).catch((res) => {
+      handleErrors(res.response.status, dispatch);
+      return rejectWithValue({
+        status: res.response.status,
+        data: res.response.data,
+      });
+    });
 
     if (result.status == 201) {
       dispatch(fetchPosts());
@@ -77,8 +98,14 @@ export const deletePost = createAsyncThunk(
  */
 export const likePost = createAsyncThunk(
   "post/likePost",
-  async (id, { dispatch }) => {
-    const result = await API.patch(`posts/like/${id}`);
+  async (id, { dispatch, rejectWithValue }) => {
+    const result = await API.patch(`posts/like/${id}`).catch((res) => {
+      handleErrors(res.response.status, dispatch);
+      return rejectWithValue({
+        status: res.response.status,
+        data: res.response.data,
+      });
+    });
 
     if (result.status == 201) {
       dispatch(fetchPosts());
