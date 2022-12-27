@@ -70,7 +70,7 @@ export const signup = async (req, res) => {
       email: result.email,
       token,
     };
-    res.status(200).json({ user: result });
+    res.status(200).json(result);
   } catch (error) {
     console.log("error: ", error);
     res.status(500).json({ message: "Something went wrong!" });
