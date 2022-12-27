@@ -46,6 +46,7 @@ export const createPost = createAsyncThunk(
     return await API.post("/posts", post)
       .then((res) => {
         toast.success("Post created!");
+        dispatch(fetchPosts());
         return res.data;
       })
       .catch((res) => {
@@ -69,9 +70,10 @@ export const updatePost = createAsyncThunk(
   ) => {
     const data = { _id, title, message, creator, tags, selectedFile };
 
-    const result = await API.patch(`posts/${_id}`, data)
+    return await API.patch(`posts/${_id}`, data)
       .then((res) => {
         toast.success("Post Updated!");
+        dispatch(fetchPosts());
         return res;
       })
       .catch((res) => {
@@ -81,11 +83,6 @@ export const updatePost = createAsyncThunk(
           data: res.response.data,
         });
       });
-
-    if (result.status == 201) {
-      dispatch(fetchPosts());
-    }
-    return result;
   }
 );
 
@@ -95,9 +92,10 @@ export const updatePost = createAsyncThunk(
 export const deletePost = createAsyncThunk(
   "post/deletePost",
   async (id, { dispatch, rejectWithValue }) => {
-    const result = await API.delete(`posts/${id}`)
+    return await API.delete(`posts/${id}`)
       .then((res) => {
         toast.success("Post Deleted!");
+        dispatch(fetchPosts());
         return res;
       })
       .catch((res) => {
@@ -107,12 +105,6 @@ export const deletePost = createAsyncThunk(
           data: res.response.data,
         });
       });
-
-    if (result.status == 201) {
-      dispatch(fetchPosts());
-    }
-
-    return result;
   }
 );
 

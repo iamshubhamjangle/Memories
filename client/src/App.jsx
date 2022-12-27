@@ -16,7 +16,6 @@ const App = () => {
     <div id="App">
       <Toaster />
       <Nav />
-      <Loading />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />

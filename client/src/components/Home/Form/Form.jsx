@@ -16,7 +16,7 @@ function Form() {
   const dispatch = useDispatch();
   const { updateMode, data } = useSelector((store) => store.form);
   const { isLoggedIn } = useSelector((store) => store.user);
-  const { loading } = useSelector((store) => store.post);
+  const { loading } = useSelector((store) => store.form);
 
   const handleClear = (e) => {
     e.preventDefault();
