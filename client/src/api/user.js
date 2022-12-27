@@ -9,20 +9,39 @@ const url = import.meta.env.VITE_BACKEND_ENDPOINT + "/users";
  */
 export const signIn = createAsyncThunk(
   "user/signIn",
-  async (formData, { dispatch }) => {
-    const response = await axios.post(`${url}/signin`, formData);
-
-    if (response.status == 200) {
-      dispatch(setUser(response.data));
-    }
-
-    return response;
+  async (formData, { dispatch, rejectWithValue }) => {
+    return await axios
+      .post(`${url}/signin`, formData)
+      .then((res) => {
+        if (res.status == 200) {
+          dispatch(setUser(res.data));
+        }
+        return res.data;
+      })
+      .catch((res) => {
+        console.log(res);
+        rejectWithValue(res);
+      });
   }
 );
 
 /**
  * SIGN UP
  */
-export const signUp = createAsyncThunk("user/signUp", async (formData) => {
-  return await axios.post(`${url}/signup`, formData).then((res) => res.data);
-});
+export const signUp = createAsyncThunk(
+  "user/signUp",
+  async (formData, { dispatch, rejectWithValue }) => {
+    return await axios
+      .post(`${url}/signup`, formData)
+      .then((res) => {
+        if (res.status == 200) {
+          dispatch(setUser(res.data));
+        }
+        return res.data;
+      })
+      .catch((res) => {
+        console.log(res);
+        rejectWithValue(res);
+      });
+  }
+);

@@ -14,7 +14,8 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-const handleErrors = (errorCode, dispatch) => {
+const handleErrors = (errorCode, errorMessage, dispatch) => {
+  toast.error("Error! " + errorMessage);
   if (errorCode === 405) {
     dispatch(removeUser());
   }
@@ -48,8 +49,7 @@ export const createPost = createAsyncThunk(
         return res.data;
       })
       .catch((res) => {
-        handleErrors(res.response.status, dispatch);
-        toast.error("Error! " + res.response.data.message);
+        handleErrors(res.response.status, res.response.data.message, dispatch);
         return rejectWithValue({
           status: res.response.status,
           data: res.response.data,
@@ -72,8 +72,7 @@ export const updatePost = createAsyncThunk(
     const result = await API.patch(`posts/${_id}`, data)
       .then(() => toast.success("Post Updated!"))
       .catch((res) => {
-        handleErrors(res.response.status, dispatch);
-        toast.error("Error! " + res.response.data.message);
+        handleErrors(res.response.status, res.response.data.message, dispatch);
         return rejectWithValue({
           status: res.response.status,
           data: res.response.data,
@@ -96,8 +95,7 @@ export const deletePost = createAsyncThunk(
     const result = await API.delete(`posts/${id}`)
       .then(() => toast.success("Post Deleted!"))
       .catch((res) => {
-        handleErrors(res.response.status, dispatch);
-        toast.error("Error! " + res.response.data.message);
+        handleErrors(res.response.status, res.response.data.message, dispatch);
         return rejectWithValue({
           status: res.response.status,
           data: res.response.data,
@@ -119,8 +117,7 @@ export const likePost = createAsyncThunk(
   "post/likePost",
   async (id, { dispatch, rejectWithValue }) => {
     const result = await API.patch(`posts/like/${id}`).catch((res) => {
-      handleErrors(res.response.status, dispatch);
-      toast.error("Error! " + res.response.data.message);
+      handleErrors(res.response.status, res.response.data.message, dispatch);
       return rejectWithValue({
         status: res.response.status,
         data: res.response.data,
