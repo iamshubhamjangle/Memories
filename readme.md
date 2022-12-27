@@ -1,24 +1,26 @@
-## Website is Live [click here to visit](https://memories-1n53.onrender.com)
+# Deployment
 
-## Running locally
+Website is Live [click here to visit](https://memories-1n53.onrender.com)
 
-### Client
+**Running locally**
+
+**Client**
 
 ```
 npm install
 npm run dev
 ```
 
-### Server
+**Server**
 
 ```
 npm install
 npm start
 ```
 
-## Setting up Environment variables
+# Setting up Environment variables
 
-### Client
+**Client**
 
 To use in React-Vite app: `import.meta.env.VITE_BACKEND_ENDPOINT`
 Environment variable must be starting with `VITE_`
@@ -29,7 +31,7 @@ VITE_GOOGLE_CLIENT_SECRET=<your-google-client-secret>
 VITE_BACKEND_ENDPOINT=http://localhost:5000
 ```
 
-### Server
+**Server**
 
 To use in Node.js env: `process.env.DB_CONNECTION_URL`
 
