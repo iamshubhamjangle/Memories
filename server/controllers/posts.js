@@ -26,7 +26,7 @@ export const createPost = async (req, res) => {
     await newPost.save();
     res.status(201).json(newPost);
   } catch (e) {
-    res.status(409).json({ message: e.message });
+    res.status(404).json({ message: e.message });
   }
 };
 
@@ -74,7 +74,7 @@ export const likePost = async (req, res) => {
 
   // If incoming id is not a mongoose id
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).send("No post with that id");
+    return res.status(409).send("No post with that id");
   }
 
   const post = await PostMessage.findById(id);
