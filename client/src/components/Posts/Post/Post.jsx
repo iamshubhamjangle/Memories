@@ -6,6 +6,7 @@ import { setUpdateMode, setFormData } from "../../../features/form/formSlice";
 import { deletePost, likePost } from "../../../api/post.js";
 import profile from "../../../assets/profile.png";
 import Like from "./Like";
+import { toast } from "react-hot-toast";
 
 function Post({ post }) {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ function Post({ post }) {
 
   const handleLikeClick = (_id) => {
     if (isLoggedIn) dispatch(likePost(_id));
-    else console.log("Please login to LIKE the post");
+    else toast.error("Please login to ❤️ the post");
   };
 
   return (

@@ -5,7 +5,7 @@ function Footer() {
   return (
     <div id="gradient">
       <span id="footer-text">
-        Made with <i className="fa-solid fa-heart fa-xl" /> by Shubham Jangle
+        Made with <i className="fa-solid fa-heart" /> by Shubham Jangle
       </span>
     </div>
   );

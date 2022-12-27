@@ -49,7 +49,7 @@ export const createPost = createAsyncThunk(
       })
       .catch((res) => {
         handleErrors(res.response.status, dispatch);
-        toast.error("Error! " + res.response.data);
+        toast.error("Error! " + res.response.data.message);
         return rejectWithValue({
           status: res.response.status,
           data: res.response.data,
@@ -73,7 +73,7 @@ export const updatePost = createAsyncThunk(
       .then(() => toast.success("Post Updated!"))
       .catch((res) => {
         handleErrors(res.response.status, dispatch);
-        toast.error("Error! " + res.response.data);
+        toast.error("Error! " + res.response.data.message);
         return rejectWithValue({
           status: res.response.status,
           data: res.response.data,
@@ -97,7 +97,7 @@ export const deletePost = createAsyncThunk(
       .then(() => toast.success("Post Deleted!"))
       .catch((res) => {
         handleErrors(res.response.status, dispatch);
-        toast.error("Error! " + res.response.data);
+        toast.error("Error! " + res.response.data.message);
         return rejectWithValue({
           status: res.response.status,
           data: res.response.data,
@@ -120,7 +120,7 @@ export const likePost = createAsyncThunk(
   async (id, { dispatch, rejectWithValue }) => {
     const result = await API.patch(`posts/like/${id}`).catch((res) => {
       handleErrors(res.response.status, dispatch);
-      toast.error("Error! " + res.response.data);
+      toast.error("Error! " + res.response.data.message);
       return rejectWithValue({
         status: res.response.status,
         data: res.response.data,
