@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { GoogleLogin } from "@react-oauth/google";
 
 import "./styles.css";
-import { setIsLoggedIn, setUser } from "../../features/user/userSlice";
+import { setUser } from "../../features/user/userSlice";
 import { signIn, signUp } from "../../api/user";
+import LoadingButton from "../Utils/LoadingButton";
 
 const initialState = {
   firstName: "",
@@ -21,7 +22,7 @@ function Auth() {
   const [hidePassword, setHidePassword] = useState(true);
   const [formData, setFormData] = useState(initialState);
 
-  const { isLoggedIn } = useSelector((store) => store.user);
+  const { isLoggedIn, loading } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -181,10 +182,13 @@ function Auth() {
                 </div>
               </div>
             )}
-            <button type="submit" className="btn btn-primary">
-              {isSignIn && <span>Sign in</span>}
-              {!isSignIn && <span>Register</span>}
-            </button>
+            {!loading && (
+              <button type="submit" className="btn btn-primary">
+                {isSignIn && <span>Sign in</span>}
+                {!isSignIn && <span>Register</span>}
+              </button>
+            )}
+            {loading && <LoadingButton minWidth="30px" />}
             <span
               className="ms-3 fst-italic text-decoration-underline"
               style={{ cursor: "pointer" }}

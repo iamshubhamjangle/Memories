@@ -9,12 +9,14 @@ import {
   setTags,
   setSelectedFile,
 } from "../../../features/form/formSlice";
+import LoadingButton from "../../Utils/LoadingButton.jsx";
 import "./styles.css";
 
 function Form() {
   const dispatch = useDispatch();
   const { updateMode, data } = useSelector((store) => store.form);
   const { isLoggedIn } = useSelector((store) => store.user);
+  const { loading } = useSelector((store) => store.post);
 
   const handleClear = (e) => {
     e.preventDefault();
@@ -80,16 +82,17 @@ function Form() {
                 onDone={({ base64 }) => dispatch(setSelectedFile(base64))}
               />
             </div>
-            {!updateMode && (
+            {!updateMode && !loading && (
               <button className="btn btn-primary" type="submit">
                 Add
               </button>
             )}
-            {updateMode && (
+            {updateMode && !loading && (
               <button className="btn btn-primary" type="submit">
                 Update
               </button>
             )}
+            {loading && <LoadingButton />}
             <button
               className="btn btn-secondary"
               onClick={(e) => handleClear(e)}
