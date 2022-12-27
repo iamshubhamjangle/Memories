@@ -33,7 +33,7 @@ function Form() {
       <div id="form-container">
         <div id="form-body" className="card">
           <div className="card-body m-3">
-            <h2>Login to create you own memories!</h2>
+            <h2>Login to create your memories and share it with the World!</h2>
           </div>
         </div>
       </div>

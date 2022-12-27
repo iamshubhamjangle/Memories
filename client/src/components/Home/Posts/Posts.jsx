@@ -9,20 +9,13 @@ function Posts() {
   const posts = useSelector((store) => store.post.posts);
 
   useEffect(() => {
-    console.log("Posts.jsx");
+    // console.log("Posts.jsx");
     dispatch(fetchPosts());
   }, []);
 
   return (
     <div className="container">
-      <h2 className="my-4">
-        Memories
-        <span className="fs-6">
-          {" ( "}
-          {posts.length ? posts.length : null}
-          {" found )"}
-        </span>
-      </h2>
+      <h2 className="my-4">Memories floating the Internet</h2>
       <div className="d-flex flex-wrap justify-content-center">
         {!posts && (
           <div className="text-center m-5">

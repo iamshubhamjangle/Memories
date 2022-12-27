@@ -42,7 +42,7 @@ export const fetchPosts = createAsyncThunk(
 export const createPost = createAsyncThunk(
   "post/createPost",
   async (post, { dispatch, rejectWithValue }) => {
-    console.log("createPost", post);
+    // console.log("createPost", post);
     return await API.post("/posts", post)
       .then((res) => {
         toast.success("Post created!");

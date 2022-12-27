@@ -28,18 +28,18 @@ const userSlice = createSlice({
      * LOGIN USER
      */
     builder.addCase(signIn.pending, (state) => {
-      console.log("signIn pending");
+      // console.log("signIn pending");
       state.loading = true;
       state.error = "";
     });
     builder.addCase(signIn.fulfilled, (state, action) => {
-      console.log("signIn successful", action);
+      // console.log("signIn successful", action);
       state.loading = false;
       state.error = "";
       state.isLoggedIn = true;
     });
     builder.addCase(signIn.rejected, (state, action) => {
-      console.log("signIn rejected", action);
+      // console.log("signIn rejected", action);
       state.loading = false;
       state.error = action.payload;
       state.isLoggedIn = false;
@@ -48,18 +48,18 @@ const userSlice = createSlice({
      * SIGNUP USER
      */
     builder.addCase(signUp.pending, (state) => {
-      console.log("signUp pending");
+      // console.log("signUp pending");
       state.loading = true;
       state.error = "";
     });
     builder.addCase(signUp.fulfilled, (state, action) => {
-      console.log("signUp successful", action);
+      // console.log("signUp successful", action);
       state.loading = false;
       state.error = "";
       state.isLoggedIn = true;
     });
     builder.addCase(signUp.rejected, (state, action) => {
-      console.log("signUp rejected", action);
+      // console.log("signUp rejected", action);
       state.loading = false;
       state.error = action.payload;
       state.isLoggedIn = false;

@@ -12,13 +12,13 @@ function Nav() {
   const dispatch = useDispatch();
 
   const logout = () => {
-    console.log("dispatch removeUser()");
+    // console.log("dispatch removeUser()");
     dispatch(removeUser());
   };
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    console.log("storedUser ", storedUser);
+    // console.log("storedUser ", storedUser);
     if (storedUser) {
       setUser(storedUser);
       dispatch(setIsLoggedIn(true));

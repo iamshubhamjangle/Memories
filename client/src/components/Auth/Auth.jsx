@@ -26,7 +26,7 @@ function Auth() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Auth.jsx");
+    // console.log("Auth.jsx");
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) navigate("/");
   }, [isLoggedIn]);

@@ -19,7 +19,7 @@ export const signIn = createAsyncThunk(
         return res.data;
       })
       .catch((res) => {
-        console.log(res);
+        // console.log(res);
         rejectWithValue(res);
       });
   }
@@ -40,7 +40,7 @@ export const signUp = createAsyncThunk(
         return res.data;
       })
       .catch((res) => {
-        console.log(res);
+        // console.log(res);
         rejectWithValue(res);
       });
   }
