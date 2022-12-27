@@ -32,7 +32,7 @@ function Nav() {
     <nav className="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
       <div className="container-fluid">
         {/* Branding */}
-        <a className="navbar-brand" href="#">
+        <div className="navbar-brand" href="#">
           <img
             src={memories}
             alt=""
@@ -40,8 +40,8 @@ function Nav() {
             height="24"
             className="d-inline-block align-text-top"
           />
-          Memories
-        </a>
+          <NavLink to="/">Memories</NavLink>
+        </div>
         {/* Hamburger */}
         <button
           className="navbar-toggler"
@@ -56,18 +56,10 @@ function Nav() {
         </button>
         {/* Items */}
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav me-auto">
+          <ul className="navbar-nav">
             <li className="nav-link">
               <NavLink to="/">Home</NavLink>
             </li>
-            <li className="nav-link">
-              <a>My Memories</a>
-            </li>
-            <li className="nav-link">
-              <a>About</a>
-            </li>
-          </ul>
-          <ul className="navbar-nav">
             {!user && (
               <li className="nav-link">
                 <NavLink to="/auth">Sign in</NavLink>

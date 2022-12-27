@@ -1,14 +1,14 @@
 import React from "react";
 import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, updatePost } from "../../api/post.js";
+import { createPost, updatePost } from "../../../api/post.js";
 import {
   clearFormData,
   setTitle,
   setMessage,
   setTags,
   setSelectedFile,
-} from "../../features/form/formSlice";
+} from "../../../features/form/formSlice";
 import "./styles.css";
 
 function Form() {

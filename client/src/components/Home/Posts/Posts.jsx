@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "../../api/post.js";
+import { fetchPosts } from "../../../api/post.js";
 import Post from "./Post/Post.jsx";
-import memories from "../../assets/memories.png";
+import memories from "../../../assets/memories.png";
 
 function Posts() {
   const dispatch = useDispatch();

@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import moment from "moment";
 import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setUpdateMode, setFormData } from "../../../features/form/formSlice";
-import { deletePost, likePost } from "../../../api/post.js";
-import profile from "../../../assets/profile.png";
+import {
+  setUpdateMode,
+  setFormData,
+} from "../../../../features/form/formSlice";
+import { deletePost, likePost } from "../../../../api/post.js";
+import profile from "../../../../assets/profile.png";
 import Like from "./Like";
 import { toast } from "react-hot-toast";
 
