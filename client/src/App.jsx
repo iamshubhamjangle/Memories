@@ -6,9 +6,9 @@ import Loading from "./components/Utils/Loading";
 import Home from "./components/Home/Home";
 import Auth from "./components/Auth/Auth";
 import NotFound from "./components/Utils/NotFound";
+import Footer from "./components/Footer/Footer";
 
 import "./styles.css";
-import Footer from "./components/Footer/footer";
 
 const App = () => {
   return (
