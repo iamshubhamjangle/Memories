@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import Nav from "./components/Nav/Nav";
 import Loading from "./components/Utils/Loading";
@@ -13,6 +14,7 @@ import "./styles.css";
 const App = () => {
   return (
     <div id="App">
+      <Toaster />
       <Nav />
       <Loading />
       <Routes>

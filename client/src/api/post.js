@@ -70,7 +70,10 @@ export const updatePost = createAsyncThunk(
     const data = { _id, title, message, creator, tags, selectedFile };
 
     const result = await API.patch(`posts/${_id}`, data)
-      .then(() => toast.success("Post Updated!"))
+      .then((res) => {
+        toast.success("Post Updated!");
+        return res;
+      })
       .catch((res) => {
         handleErrors(res.response.status, res.response.data.message, dispatch);
         return rejectWithValue({
@@ -93,7 +96,10 @@ export const deletePost = createAsyncThunk(
   "post/deletePost",
   async (id, { dispatch, rejectWithValue }) => {
     const result = await API.delete(`posts/${id}`)
-      .then(() => toast.success("Post Deleted!"))
+      .then((res) => {
+        toast.success("Post Deleted!");
+        return res;
+      })
       .catch((res) => {
         handleErrors(res.response.status, res.response.data.message, dispatch);
         return rejectWithValue({
